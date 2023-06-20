@@ -7,7 +7,6 @@ import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
 
 const Nav = () => {
   const { data: session } = useSession();
-
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
@@ -26,12 +25,12 @@ const Nav = () => {
           alt='logo'
           width={30}
           height={30}
+          priority={true}
           className='object-contain'
         />
         <p className='logo_text'>Promptopia</p>
       </Link>
 
-      {/* Desktop Navigation */}
       <div className='sm:flex hidden'>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
@@ -48,6 +47,7 @@ const Nav = () => {
                 src={session?.user.image}
                 width={37}
                 height={37}
+                priority={true}
                 className='rounded-full'
                 alt='profile'
               />
@@ -71,7 +71,6 @@ const Nav = () => {
         )}
       </div>
 
-      {/* Mobile Navigation */}
       <div className='sm:hidden flex relative'>
         {session?.user ? (
           <div className='flex'>
