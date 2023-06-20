@@ -11,10 +11,11 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const res = await getProviders();
-      setProviders(res);
-    })();
+    const setUpProviders = async () => {
+      const response = await getProviders();
+      setProviders(response);
+    };
+    setUpProviders();
   }, []);
 
   return (
@@ -25,12 +26,11 @@ const Nav = () => {
           alt='logo'
           width={30}
           height={30}
-          priority={true}
           className='object-contain'
         />
         <p className='logo_text'>Promptopia</p>
       </Link>
-
+      {alert(session?.user)}
       <div className='sm:flex hidden'>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>

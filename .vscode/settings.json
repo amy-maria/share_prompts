@@ -1,0 +1,4 @@
+{
+  "tailwindCSS.lint.invalidApply": "warning",
+  "tailwindCSS.lint.invalidTailwindDirective": "warning"
+}
