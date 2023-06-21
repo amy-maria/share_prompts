@@ -11,11 +11,10 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    const setUpProviders = async () => {
-      const response = await getProviders();
-      setProviders(response);
-    };
-    setUpProviders();
+    (async () => {
+      const res = await getProviders();
+      setProviders(res);
+    })();
   }, []);
 
   return (
@@ -30,7 +29,7 @@ const Nav = () => {
         />
         <p className='logo_text'>Promptopia</p>
       </Link>
-      {alert(session?.user)}
+
       <div className='sm:flex hidden'>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
@@ -47,7 +46,6 @@ const Nav = () => {
                 src={session?.user.image}
                 width={37}
                 height={37}
-                priority={true}
                 className='rounded-full'
                 alt='profile'
               />
@@ -91,12 +89,14 @@ const Nav = () => {
                   onClick={() => setToggleDropdown(false)}>
                   My Profile
                 </Link>
+
                 <Link
                   href='/create-prompt'
                   className='dropdown_link'
                   onClick={() => setToggleDropdown(false)}>
                   Create Prompt
                 </Link>
+
                 <button
                   type='button'
                   onClick={() => {
