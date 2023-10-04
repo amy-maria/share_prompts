@@ -8,9 +8,9 @@ export const metadata = {
 };
 
 const RootLayout = ({ children }) => (
-  <html lang='en' class='dark'>
+  <html lang='en' className='dark'>
     <body>
-      <div class='bg-white dark:bg-black'>
+      <div className='bg-white dark:bg-black'>
         <Provider>
           <div className='main'>
             <div className='gradient' />
