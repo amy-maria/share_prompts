@@ -3,24 +3,22 @@ import Nav from '@components/Nav';
 import Provider from '@components/Provider';
 
 export const metadata = {
-  title: 'Promptomatic',
+  title: 'Promptopia',
   description: 'Discover and Share AI Prompts',
 };
 
 const RootLayout = ({ children }) => (
-  <html lang='en' className='dark'>
+  <html lang='en'>
     <body>
-      <div className='bg-white dark:bg-black'>
-        <Provider>
-          <div className='main'>
-            <div className='gradient' />
-          </div>
-          <main className='app'>
-            <Nav />
-            {children}
-          </main>
-        </Provider>
-      </div>
+      <Provider>
+        <div className='main'>
+          <div className='gradient' />
+        </div>
+        <main className='app'>
+          <Nav />
+          {children}
+        </main>
+      </Provider>
     </body>
   </html>
 );

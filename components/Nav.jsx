@@ -22,7 +22,7 @@ const Nav = () => {
       <Link href='/' className='flex gap-2 flex-center'>
         <Image
           src='/assets/images/logo.svg'
-          alt='logo'
+          alt='Promptopia logo'
           width={30}
           height={30}
           className='object-contain'
@@ -30,6 +30,7 @@ const Nav = () => {
         <p className='logo_text'>Promptopia</p>
       </Link>
 
+      {/* mobile navigation */}
       <div className='sm:flex hidden'>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>
@@ -53,6 +54,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
+            {/* Using current Google Auth not code from tutorial- only using 1 provider Google Auth but could expand to GitHub etc */}
             {providers &&
               Object.values(providers).map((provider) => (
                 <button
@@ -69,6 +71,7 @@ const Nav = () => {
         )}
       </div>
 
+      {/* Mobile Navigation */}
       <div className='sm:hidden flex relative'>
         {session?.user ? (
           <div className='flex'>
@@ -78,7 +81,7 @@ const Nav = () => {
               height={37}
               className='rounded-full'
               alt='profile'
-              onClick={() => setToggleDropdown(!toggleDropdown)}
+              onClick={() => setToggleDropdown((prev) => !prev)}
             />
 
             {toggleDropdown && (
