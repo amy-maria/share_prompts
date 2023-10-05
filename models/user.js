@@ -16,6 +16,7 @@ const UserSchema = new Schema({
   },
 });
 
+//Checks to see if user is already in models db//
 const User = models.User || model('User', UserSchema);
 
 export default User;

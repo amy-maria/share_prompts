@@ -92,7 +92,7 @@ const Nav = () => {
                   onClick={() => setToggleDropdown(false)}>
                   My Profile
                 </Link>
-
+                {/*Resets Navigation */}
                 <Link
                   href='/create-prompt'
                   className='dropdown_link'
