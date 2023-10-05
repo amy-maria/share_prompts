@@ -24,14 +24,12 @@ const CreatePrompt = () => {
           userId: session?.user.id,
           tag: post.tag,
         }),
-        console.log(response);
       });
 
       if (response.ok) {
         router.push('/');
       }
     } catch (error) {
-      console.log(error);
     } finally {
       setIsSubmitting(false);
     }
