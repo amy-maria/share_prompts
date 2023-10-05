@@ -19,7 +19,7 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 const Feed = () => {
   const [allPosts, setAllPosts] = useState([]);
-
+  const [posts, setPosts] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState('');
@@ -77,10 +77,7 @@ const Feed = () => {
         />
       </form>
       {searchText ? (
-        <PromptCardList
-          data={searchedResults}
-          handleTagClick={handleTagClick}
-        />
+        <PromptCardList data={posts} handleTagClick={handleTagClick} />
       ) : (
         <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
