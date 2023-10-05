@@ -24,6 +24,7 @@ const CreatePrompt = () => {
           userId: session?.user.id,
           tag: post.tag,
         }),
+        console.log(response);
       });
 
       if (response.ok) {
