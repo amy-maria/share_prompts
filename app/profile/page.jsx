@@ -38,9 +38,12 @@ const MyProfile = () => {
           method: 'DELETE',
         });
 
-        const filteredPosts = Myposts.filter((item) => item._id !== post._id);
+        const filteredPosts = myPosts.filter((item) => item._id !== post._id);
 
         setMyPosts(filteredPosts);
+
+        //Reload the page after the card is deleted
+        router.reload();
       } catch (error) {
         console.log(error);
       }

@@ -22,7 +22,7 @@ const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [searchTimeout, setSearchTimeout] = useState(null);
-  const [searchedResults, setSearchedResults] = useState('');
+  const [searchedResults, setSearchedResults] = useState([]);
 
   const fetchPosts = async () => {
     const response = await fetch('/api/prompt');
@@ -36,13 +36,14 @@ const Feed = () => {
   }, []);
 
   const filterPrompts = (searchtext) => {
-    const regex = new RegExp(searchtext, 'i'); // 'i' flag for case-insensitive search
-    return allPosts.filter(
+    const regex = new RegExp(searchtext, 'i');
+    const filteredPosts = allPosts.filter(
       (item) =>
         regex.test(item.creator.username) ||
         regex.test(item.tag) ||
         regex.test(item.prompt)
     );
+    return filteredPosts;
   };
 
   const handleSearchChange = (e) => {
@@ -52,16 +53,16 @@ const Feed = () => {
     // debounce method
     setSearchTimeout(
       setTimeout(() => {
-        const searchResult = filterPrompts(e.target.value);
-        setSearchedResults(searchResult);
-      }, 500)
+        const searchResults = filterPrompts(e.target.value);
+        setSearchedResults(searchResults);
+      }, 1000)
     );
   };
   const handleTagClick = (tagName) => {
     setSearchText(tagName);
 
-    const searchResult = filterPrompts(tagName);
-    setSearchedResults(searchResult);
+    const searchResults = filterPrompts(tagName);
+    setSearchedResults(searchResults);
   };
 
   return (
@@ -74,10 +75,14 @@ const Feed = () => {
           onChange={handleSearchChange}
           required
           className='search_input peer'
+          name='search-form'
         />
       </form>
       {searchText ? (
-        <PromptCardList data={posts} handleTagClick={handleTagClick} />
+        <PromptCardList
+          data={searchedResults}
+          handleTagClick={handleTagClick}
+        />
       ) : (
         <PromptCardList data={allPosts} handleTagClick={handleTagClick} />
       )}
