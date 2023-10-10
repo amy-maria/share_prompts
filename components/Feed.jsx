@@ -24,15 +24,14 @@ const Feed = () => {
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
-  const fetchPosts = async (post) => {
+  const fetchPosts = async () => {
     const response = await fetch('/api/prompt');
     const data = await response.json();
     setAllPosts(data);
-    console.log(response);
   };
 
   useEffect(() => {
-    fetchPosts(post);
+    fetchPosts();
   }, []);
 
   const filterPrompts = (searchtext) => {
@@ -52,8 +51,8 @@ const Feed = () => {
     // debounce method
     setSearchTimeout(
       setTimeout(() => {
-        const searchResults = filterPrompts(e.target.value);
-        setSearchedResults(searchResults);
+        const searchResult = filterPrompts(e.target.value);
+        setSearchedResults(searchResult);
       }, 1000)
     );
   };
@@ -61,7 +60,7 @@ const Feed = () => {
     setSearchText(tagName);
 
     const searchResults = filterPrompts(tagName);
-    setSearchedResults(searchResults);
+    setSearchedResults(searchResult);
   };
 
   return (
