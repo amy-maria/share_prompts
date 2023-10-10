@@ -31,7 +31,7 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    setAllPosts(data);
+    setAllPosts();
   }, []);
 
   const filterPrompts = (searchtext) => {
