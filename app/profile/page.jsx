@@ -43,7 +43,7 @@ const MyProfile = () => {
         setMyPosts(filteredPosts);
 
         //Reload the page after the card is deleted
-        router.reload();
+        //router.reload();
       } catch (error) {
         console.log(error);
       }
