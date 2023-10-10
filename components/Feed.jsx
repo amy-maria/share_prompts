@@ -27,11 +27,11 @@ const Feed = () => {
   const fetchPosts = async () => {
     const response = await fetch('/api/prompt');
     const data = await response.json();
-    //setAllPosts(data);
+    setAllPosts(data);
   };
 
   useEffect(() => {
-    setAllPosts(data);
+    fetchPosts();
   }, []);
 
   const filterPrompts = (searchtext) => {
