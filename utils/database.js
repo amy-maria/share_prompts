@@ -15,6 +15,11 @@ export const connectToDB = async () => {
       useUnifiedTopology: true,
       //connectTimeoutMS: 10000,
     });
+
+    //Ping MongoDB to check if connection is successful from docs //
+    const db = mongoose.connection;
+    await db.command({ ping: 1 });
+
     isConnected = true;
     console.log('MongoDB connected');
   } catch (error) {
