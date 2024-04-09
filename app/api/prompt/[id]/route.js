@@ -6,10 +6,13 @@ export const GET = async (request, { params }) => {
     await connectToDB();
 
     const prompt = await Prompt.findById(params.id).populate('creator');
-    if (!prompt) return new Response('Prompt Not Found', { status: 404 });
 
+    if (!prompt) {
+      return new Response('Prompt Not Found', { status: 404 });
+    }
     return new Response(JSON.stringify(prompt), { status: 200 });
   } catch (error) {
+    console.error('Error fetching prompt:', error);
     return new Response('Internal Server Error', { status: 500 });
   }
 };
@@ -35,6 +38,7 @@ export const PATCH = async (request, { params }) => {
 
     return new Response('Successfully updated the Prompts', { status: 200 });
   } catch (error) {
+    console.error('Error updating prompt:', error);
     return new Response('Error Updating Prompt', { status: 500 });
   }
 };
@@ -44,10 +48,17 @@ export const DELETE = async (request, { params }) => {
     await connectToDB();
 
     // Find the prompt by ID and remove it
-    await Prompt.findByIdAndRemove(params.id);
+    const deletedPrompt = await Prompt.findByIdAndRemove(params.id);
+    if (!deletedPrompt) {
+      return new Response('Prompt not found', { status: 404 });
+    }
 
     return new Response('Prompt deleted successfully', { status: 200 });
   } catch (error) {
+    console.error('Error deleting prompt:', error);
     return new Response('Error deleting prompt', { status: 500 });
   }
 };
+{
+  /* adding additional try/catch and error logging */
+}
