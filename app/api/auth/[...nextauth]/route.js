@@ -13,10 +13,17 @@ const handler = NextAuth({
   ],
   callbacks: {
     async session({ session }) {
-      // store the user id from MongoDB to session
-      const sessionUser = await User.findOne({ email: session.user.email });
-      session.user.id = sessionUser._id.toString();
-
+      try {
+        // store the user id from MongoDB to session, added try/catch//
+        if (session && session.user && session.user.email) {
+          const sessionUser = await User.findOne({ email: session.user.email });
+          if (sessionUser) {
+            session.user.id = sessionUser._id.toString();
+          }
+        }
+      } catch (error) {
+        console.error('Error handling session:', error);
+      }
       return session;
     },
     async signIn({ account, profile, user, credentials }) {
@@ -37,7 +44,7 @@ const handler = NextAuth({
 
         return true;
       } catch (error) {
-        console.log('Error checking if user exists: ', error.message);
+        console.error('Error signing in: ', error);
         return false;
       }
     },
@@ -50,4 +57,7 @@ export { handler as GET, handler as POST };
 
 {
   /* connectToDB from database.js Mongoose settings */
+}
+{
+  /* reviewed code */
 }
