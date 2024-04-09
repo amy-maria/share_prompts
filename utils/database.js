@@ -13,7 +13,7 @@ export const connectToDB = async () => {
       dbName: 'share_prompts',
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      connectTimeoutMS: 10000,
+      //connectTimeoutMS: 10000,
     });
     isConnected = true;
     console.log('MongoDB connected');
