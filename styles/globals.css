@@ -168,3 +168,8 @@
 .flex-between {
   @apply flex justify-between items-center;
 }
+
+.footer {
+  @apply mt-5 text-sm text-slate-800 
+  flex justify-center;
+}

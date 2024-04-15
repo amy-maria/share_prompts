@@ -11,15 +11,19 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    async () => {
-      const response = await getProviders();
-
-      setProviders(response);
+    const fetchProviders = async () => {
+      try {
+        const res = await getProviders();
+        setProviders(res);
+      } catch (error) {
+        console.error('Error fetching providers:', error);
+      }
     };
+    fetchProviders();
   }, []);
-  {
-    /* callback function only runs at the start, setProviders to our state based on response*/
-  }
+
+  // callback function only runs at the start, setProviders to our state based on response
+
   return (
     <nav className='flex-between w-full mb-16 pt-3'>
       <Link href='/' className='flex gap-2 flex-center'>
@@ -33,7 +37,7 @@ const Nav = () => {
         <p className='logo_text'>Promptopia</p>
       </Link>
 
-      {/* mobile navigation */}
+      {/* desktop navigation */}
       <div className='sm:flex hidden'>
         {session?.user ? (
           <div className='flex gap-3 md:gap-5'>

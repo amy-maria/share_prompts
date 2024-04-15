@@ -51,16 +51,17 @@ const Feed = () => {
     // debounce method
     setSearchTimeout(
       setTimeout(() => {
-        const searchResult = filterPrompts(e.target.value);
-        setSearchedResults(searchResult);
+        const searchResults = filterPrompts(e.target.value);
+        setSearchedResults(searchResults);
       }, 1000)
     );
   };
   const handleTagClick = (tagName) => {
+    clearTimeout(searchTimeout); //Clear the search timeout
     setSearchText(tagName);
 
     const searchResults = filterPrompts(tagName);
-    setSearchedResults(searchResult);
+    setSearchedResults(searchResults);
   };
 
   return (

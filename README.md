@@ -7,8 +7,7 @@ Promptopia is a project built with Next.js and MongoDB. The project also used:
 3. User is able to create, edit and delete posts
 4. Creating of #tags that are searchable
 5. Created searchable text the returns the selected Prompt card
-6. Used Playwrite to E2E testing
-7. Used tracking software to document bugs and solutions.
+6. Used tracking software to document bugs and solutions.
 
 This was a beneficial project to do. This was the first time I used Next.js and MongoDB. Even though I followed the project tutorial, I still had considerable troubleshooting to do.
 I had problems with Google authentication. It looks like Google changed the authorization process between the time the project tutorial was published and when I was doing it. I also had to troubleshoot Auth new issues in production versus development.

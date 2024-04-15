@@ -49,7 +49,8 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             type='submit'
             disabled={submitting}
             className='px-5 py=1.5 text-sm bg-primary-orange rounded-full text-white'>
-            {submitting ? `${type}...` : type}
+            {/*button label will read as Save in edit mode */}
+            {submitting ? 'Saving...' : type === 'Edit' ? 'Save' : 'Submit'}
           </button>
         </div>
       </form>
