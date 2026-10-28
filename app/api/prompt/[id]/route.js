@@ -1,4 +1,6 @@
 import Prompt from '@models/prompt';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@utils/authOptions';
 import { connectToDB } from '@utils/database';
 
 
@@ -20,18 +22,24 @@ export const GET = async (request, { params }) => {
 
 
 export const PATCH = async (request, { params }) => {
-  const { prompt, tag } = await request.json();
-  const { id } = await params;
-
-
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+    const { prompt, tag } = await request.json();
     await connectToDB();
+    const { id } = await params;
 
+    //Does the post exist?
     // Find the existing prompt by ID
     const existingPrompt = await Prompt.findById(id);
-
     if (!existingPrompt) {
       return new Response('Prompt not found', { status: 404 });
+    }
+    //3. Is the editor the person who created the post
+    if (existingPrompt.creator.toString() !== session.user.id) {
+      return new Response('Forbidden', { status: 403 });
     }
 
     // Update the prompt with new data
@@ -49,21 +57,29 @@ export const PATCH = async (request, { params }) => {
 
 export const DELETE = async (request, { params }) => {
   try {
+    //1.Who is asking?
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return new Response('Unauthorized', { status: 401 }); //not signed in and can't delete
+    }
     await connectToDB();
-
-    // Find the prompt by ID and remove it
     const { id } = await params;
-    const deletedPrompt = await Prompt.findByIdAndDelete(id);
-    if (!deletedPrompt) {
+
+    //2. Does the post exist?
+    const existingPrompt = await Prompt.findById(id);
+    if (!existingPrompt) {
       return new Response('Prompt not found', { status: 404 });
     }
-
+    //3. Is the editor the person who created the post?
+    if (existingPrompt.creator.toString() !== session.user.id) {
+      return new Response('Forbidden', { status: 403 });
+    }
+    //4. Now delete it.
+    await existingPrompt.deleteOne();
     return new Response('Prompt deleted successfully', { status: 200 });
   } catch (error) {
     console.error('Error deleting prompt:', error);
     return new Response('Error deleting prompt', { status: 500 });
   }
 };
-{
-  /* adding additional try/catch and error logging */
-}
+
