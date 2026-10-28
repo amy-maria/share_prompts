@@ -68,6 +68,7 @@ const handler = NextAuth({
 {
   /*see Next documentation for providers*/
 }
+
 export { handler as GET, handler as POST };
 
 {
