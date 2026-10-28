@@ -1,5 +1,3 @@
-import Email from 'next-auth/providers/email';
-
 const Privacy = () => {
   return (
     <section className='w-full flex-center flex-col  text-slate-600 text-center'>
